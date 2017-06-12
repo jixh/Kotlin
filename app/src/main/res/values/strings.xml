@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Kotlin</string>
+
+
+    <string name="girl">妹纸福利</string>
+    <string name="recommend">往期推荐</string>
+    <string name="history">休息视频</string>
+</resources>

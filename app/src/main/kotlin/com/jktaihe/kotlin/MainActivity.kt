@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(){
 
+    var lastPostion:Int = 0
+
     override fun layoutId(): Int {
         return R.layout.activity_main
     }
@@ -37,6 +39,8 @@ class MainActivity : BaseActivity(){
 
     val tabs = Tab.values()
     private fun changeTab(i: Int) {
+
+        if (i === lastPostion) return else lastPostion = i
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 

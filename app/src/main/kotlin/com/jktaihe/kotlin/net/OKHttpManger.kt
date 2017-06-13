@@ -26,18 +26,19 @@ class OkHttpManeger {
     }
 
     enum class Singletion{
+
         INSTANCE;
 
-        val appService: AppService
-        val testService: TestService
+        val appService: AppService by lazy(LazyThreadSafetyMode.NONE) {
+            getInstance(Constant.BaseURL,AppService::class.java)
+        }
 
-        val client:OkHttpClient
-        init {
-            client = getOkHttpClient()
-            var url = Constant.BaseURL
-            url = url
-            appService = getInstance(url,AppService::class.java)
-            testService = getInstance("http://japi.juhe.cn/",TestService::class.java)
+        val testService: TestService by lazy (LazyThreadSafetyMode.NONE){
+            getInstance("http://japi.juhe.cn/",TestService::class.java)
+        }
+
+        private val client:OkHttpClient by lazy (LazyThreadSafetyMode.NONE){
+            getOkHttpClient()
         }
 
         private fun <T> getInstance(url:String,claz:Class<T>):T{

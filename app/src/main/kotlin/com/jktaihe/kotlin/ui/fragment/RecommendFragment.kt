@@ -7,9 +7,7 @@ import com.jktaihe.engine.ui.BaseFragment
 import com.jktaihe.kotlin.R
 import com.jktaihe.kotlin.bean.GankBean
 import com.jktaihe.kotlin.net.OkHttpManeger
-import com.jktaihe.kotlin.net.RxResultHelper
 import com.jktaihe.kotlin.ui.adapter.GankAdapter
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_recommend.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -54,6 +52,8 @@ class RecommendFragment: BaseFragment(){
     fun getDatas(){
 
         Log.i("pageNum", "")
+
+
         OkHttpManeger.getService()
                 .getList(page)
 //                .subscribeOn(Schedulers.io())

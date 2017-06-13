@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_recommend.view.*
  * Created by hzjixiaohui on 2017-6-1.
  */
 
-class GankAdapter(datas: List<GankBean>, itemClick: (GankBean) -> Unit) : AppAdapter<GankBean>(datas, itemClick) {
+class GankAdapter(datas: List<GankBean>, itemClick: (GankBean) -> Unit) : JktaiheBaseAdapter<GankBean>(datas, itemClick) {
 
     override fun itemLayoutId(): Int {
         return R.layout.item_recommend

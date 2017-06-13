@@ -35,8 +35,7 @@ class MainActivity : BaseActivity(){
         changeTab(0)
     }
 
-    var tabs = Tab.values()
-
+    val tabs = Tab.values()
     private fun changeTab(i: Int) {
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -49,7 +48,8 @@ class MainActivity : BaseActivity(){
         }else{
             fragmentTransaction.show(currentTab)
         }
-        fragmentTransaction.commit()
+
+        fragmentTransaction.commitAllowingStateLoss()
 
     }
 }

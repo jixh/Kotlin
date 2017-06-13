@@ -11,7 +11,6 @@ class AppApplication :Application(){
     companion object{
         private var instance: AppApplication? = null
         fun instance() = instance
-
     }
 
     override fun onCreate() {

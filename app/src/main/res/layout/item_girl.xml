@@ -8,15 +8,14 @@
     android:padding="10dp">
     <android.support.v4.widget.CircleImageView
         android:id="@+id/iv_show"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:src="@drawable/girl"
         />
     <TextView
         android:id="@+id/tv_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/iv_show"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_show"
         tools:text="test" />
 </android.support.constraint.ConstraintLayout>

@@ -17,7 +17,7 @@ import org.jetbrains.anko.support.v4.toast
  * Created by hzjixiaohui on 2017-6-7.
  */
 
-class RecommendFragment: BaseFragment(){
+class HistoryFragment: BaseFragment(){
 
     var page = 1
     lateinit var mAdapter : GankAdapter
@@ -54,8 +54,8 @@ class RecommendFragment: BaseFragment(){
     fun getDatas(){
 
         Log.i("pageNum", "")
-        OkHttpManeger.getService()
-                .getList(page)
+        OkHttpManeger.getTestService()
+                .getTestList("")
 //                .subscribeOn(Schedulers.io())
 //                .compose(RxResultHelper.handleResult())
 //                .doOnTerminate { swipeRefreshLayout.isRefreshing = false }

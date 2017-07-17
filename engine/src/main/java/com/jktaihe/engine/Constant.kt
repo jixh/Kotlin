@@ -1,19 +1,16 @@
 package com.jktaihe.engine
 
-import com.jktaihe.engine.APIHOST.Companion.BaseHost
+import com.jktaihe.engine.APIHOST.BaseHost
+
 
 /**
  * Created by hzjixiaohui on 2017-6-7.
  */
 
-class Constant{
-    companion object{
-        val BaseURL:String = BaseHost+ "api/"
-    }
+object Constant{
+    val BaseURL:String = BaseHost+ "api/"
 }
 
-class APIHOST{
-    companion object {
-        var BaseHost: String? = null
-    }
+object APIHOST{
+    lateinit var BaseHost:String
 }

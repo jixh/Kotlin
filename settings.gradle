@@ -1,1 +1,3 @@
-include ':app', ':engine'
+include ':app', ':engine',':recyclerview'
+
+project(':recyclerview').projectDir = new File('D:\\android\\baseAdapter\\baseadapter-recyclerview')

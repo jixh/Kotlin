@@ -5,10 +5,10 @@ import android.util.Log
 import com.jktaihe.engine.data.net.ServerException
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 object RxResultHelper {
-
     fun <T> handleResult() = ObservableTransformer<GankApiResponse<T>, T> {
         apiObservable ->
         apiObservable
@@ -21,6 +21,12 @@ object RxResultHelper {
                         Observable.error<T>(ServerException(tApiResponse.error.toString()!!))
                     }
                 }
+    }
+
+   fun <T> handleQueust() = ObservableTransformer<T, T> {
+        apiObservable ->
+        apiObservable
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
     private fun <T> createData(t: T): Observable<T> {

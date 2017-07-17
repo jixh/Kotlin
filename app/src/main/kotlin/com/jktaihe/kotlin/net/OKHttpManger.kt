@@ -5,60 +5,64 @@ import com.jktaihe.engine.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.SecureRandom
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+import javax.security.cert.CertificateException
+import javax.security.cert.X509Certificate
+import okhttp3.Cookie
+import okhttp3.HttpUrl
+import okhttp3.CookieJar
+
+
 
 /**
  * Created by hzjixiaohui on 2017-6-8.
  */
-class OkHttpManeger {
+object OkHttpManeger {
 
-    companion object {
-
-        @JvmStatic fun getService(): AppService {
-            return OkHttpManeger.Singletion.INSTANCE.appService
-        }
-
-        @JvmStatic fun getTestService(): TestService {
-            return OkHttpManeger.Singletion.INSTANCE.testService
-        }
+    fun getService(): AppService {
+        return appService
     }
 
-    enum class Singletion{
+    fun getTestServiceApi(): TestService {
+        return testService
+    }
 
-        INSTANCE;
+    private val appService: AppService by lazy {
+        getInstance(Constant.BaseURL, AppService::class.java)
+    }
 
-        val appService: AppService by lazy(LazyThreadSafetyMode.NONE) {
-            getInstance(Constant.BaseURL,AppService::class.java)
-        }
+    private val testService: TestService by lazy{
+        getInstance("http://japi.juhe.cn/", TestService::class.java)
+    }
 
-        val testService: TestService by lazy (LazyThreadSafetyMode.NONE){
-            getInstance("http://japi.juhe.cn/",TestService::class.java)
-        }
+    private val client: OkHttpClient by lazy(LazyThreadSafetyMode.NONE) {
+        getOkHttpClient()
+    }
 
-        private val client:OkHttpClient by lazy (LazyThreadSafetyMode.NONE){
-            getOkHttpClient()
-        }
+    private fun <T> getInstance(url: String, claz: Class<T>): T {
+        return Retrofit.Builder()
+                .baseUrl(url)
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(claz)
+    }
 
-        private fun <T> getInstance(url:String,claz:Class<T>):T{
-            return Retrofit.Builder()
-                    .baseUrl(url)
-                    .client(client)
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(claz)
-        }
+    private fun getOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message: String? -> Log.i("http", message) })
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        private fun getOkHttpClient(): OkHttpClient {
-            val interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message: String? -> Log.i("http:", message) })
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            return OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    .connectTimeout(30L, TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(true)
-                    .build()
-        }
+        return OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(30L, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build()
     }
 }

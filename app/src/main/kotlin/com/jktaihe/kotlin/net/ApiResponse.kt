@@ -22,6 +22,6 @@ class GankApiResponse<T> {
 
     val isSuccess: Boolean
         get() {
-            return !error
+            return false.equals(error)
         }
 }

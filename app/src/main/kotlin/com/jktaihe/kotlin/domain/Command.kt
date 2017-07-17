@@ -1,5 +1,6 @@
 package com.jktaihe.kotlin.domain
 
+import com.jktaihe.engine.data.Test
 import com.jktaihe.kotlin.net.ForecastRequest
 
 /**
@@ -17,3 +18,10 @@ class RequestForecastCommand(val zipCode: String) : Command<ForecastList> {
         return ForecastDataMapper().convertFromDataModel(forecastRequest.execulte())
     }
 }
+
+interface  CLicker{
+    operator fun invoke(test: Test)
+}
+
+//fun setClick(object:CLicker) {}
+

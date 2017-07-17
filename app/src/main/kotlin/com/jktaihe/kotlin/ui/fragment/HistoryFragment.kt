@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.jktaihe.engine.ui.BaseFragment
 import com.jktaihe.kotlin.R
-import com.jktaihe.kotlin.bean.GankBean
 import com.jktaihe.kotlin.net.OkHttpManeger
 import com.jktaihe.kotlin.net.RxResultHelper
 import com.jktaihe.kotlin.ui.adapter.GankAdapter
@@ -30,13 +29,8 @@ class HistoryFragment: BaseFragment(){
 
         recycler_view.layoutManager = LinearLayoutManager(activity)
 
-        val list = ArrayList<GankBean>()
-        list.add(GankBean("id","","desc","","","","",false,""))
-        list.add(GankBean("id","","desc","","","","",false,""))
-        list.add(GankBean("id","","desc","","","","",false,""))
-        list.add(GankBean("id","","desc","","","","",false,""))
 
-        mAdapter = GankAdapter(list){
+        mAdapter = GankAdapter{
             dataBean ->
             toast(dataBean.desc.toString())
         }
@@ -50,20 +44,18 @@ class HistoryFragment: BaseFragment(){
 
         getDatas()
     }
-
     fun getDatas(){
-
         Log.i("pageNum", "")
-        OkHttpManeger.getTestService()
-                .getTestList("")
-//                .subscribeOn(Schedulers.io())
-//                .compose(RxResultHelper.handleResult())
-//                .doOnTerminate { swipeRefreshLayout.isRefreshing = false }
-//                .subscribe {
-//                    resultBean ->
-//                    mAdapter?.dataList = resultBean
-//                    mAdapter?.notifyDataSetChanged()
-//                    Log.i("pageNum", page.toString())
-//                }
+        OkHttpManeger.getService()
+                .getList(page)
+                .subscribeOn(Schedulers.io())
+                .compose(RxResultHelper.handleResult())
+                .doOnTerminate { swipeRefreshLayout.isRefreshing = false }
+                .subscribe {
+                    resultBean ->
+                    mAdapter?.dataList?.addAll(resultBean)
+                    mAdapter?.notifyDataSetChanged()
+                    Log.i("pageNum", page.toString())
+                }
     }
 }

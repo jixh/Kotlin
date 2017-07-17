@@ -11,4 +11,6 @@ interface LoadView{
     fun loadSuccess()
 
     fun loadFinish()
+
+
 }

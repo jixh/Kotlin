@@ -8,7 +8,7 @@
           android:title="@string/girl"
           android:icon="@drawable/girl" />
     <item android:id="@+id/action_history"
-          android:title="@string/history"
+          android:title="@string/setting"
           android:icon="@drawable/history" />
 
 </menu>

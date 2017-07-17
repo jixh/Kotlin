@@ -1,7 +1,9 @@
 package com.jktaihe.kotlin.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import com.jktaihe.engine.ui.BaseFragment
 import com.jktaihe.kotlin.R
@@ -27,11 +29,9 @@ class GirlFragment: BaseFragment(){
 
     override fun initView(savedInstanceState: Bundle?) {
 
-        rv_list.layoutManager = LinearLayoutManager(activity)
-//
-        val list = ArrayList<GankBean>()
-//
-        mAdapter = GirlAdapter(list){
+        rv_list.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        mAdapter = GirlAdapter{
             dataBean ->
             toast(dataBean.desc.toString())
         }
@@ -54,7 +54,7 @@ class GirlFragment: BaseFragment(){
                 .doOnTerminate { swipeRefreshLayout.isRefreshing = false }
                 .subscribe {
                     resultBean ->
-                    mAdapter.dataList = resultBean
+                    mAdapter.dataList?.addAll(resultBean)
                     mAdapter.notifyDataSetChanged()
                 }
     }

@@ -25,6 +25,7 @@ data class GankBean(val _id: String?,
                     val source: String?,
                     val type: String?,
                     val url: String?,
+                    val images:List<String>?,
                     val used: Boolean = false,
                     val who: String?)
 

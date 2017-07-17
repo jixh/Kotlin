@@ -14,11 +14,10 @@ import retrofit2.http.Query
  */
 interface AppService {
 
-
     @GET("data/Android/$pageSize/{page}")
-    fun getList(@Path("page") page:Int):Observable<GankApiResponse<List<GankBean>>>
+    fun getList(@Path("page") page:Int): Observable<GankApiResponse<List<GankBean>>>
 
-    @GET("data/data/福利/$pageSize/{page}")
+    @GET("data/福利/$pageSize/{page}")
     fun get福利(@Path("page") page:Int):Observable<GankApiResponse<List<GankBean>>>
 
 

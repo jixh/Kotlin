@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.jktaihe.engine.ui.BaseActivity
 
 /**
@@ -22,6 +23,7 @@ class DetailActivity : BaseActivity(){
 
         mWebView.loadUrl(url)
 
+
         setContentView(mWebView)
 
     }
@@ -35,7 +37,7 @@ class DetailActivity : BaseActivity(){
 
     companion object{
         fun startActivity(context: Context, url: String?) {
-            val intent = Intent(context, DetailActivity.javaClass)
+            val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("URL", url)
             context.startActivity(intent)
         }
